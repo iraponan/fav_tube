@@ -1,3 +1,5 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:fav_tube/blocs/bloc_videos.dart';
 import 'package:fav_tube/data/data_search.dart';
 import 'package:flutter/material.dart';
 
@@ -37,6 +39,9 @@ class HomePage extends StatelessWidget {
                 context: context,
                 delegate: DataSearch(),
               );
+              if (result != null) {
+                BlocProvider.getBloc<VideosBloc>().inSearch.add(result);
+              }
             },
             icon: const Icon(Icons.search),
             style: IconButton.styleFrom(
@@ -45,7 +50,18 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: Container(),
+      body: StreamBuilder(
+        stream: BlocProvider.getBloc<VideosBloc>().outVideos,
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemBuilder: null,
+            );
+          } else {
+            return Container();
+          }
+        },
+      ),
     );
   }
 }
