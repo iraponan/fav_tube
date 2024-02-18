@@ -1,6 +1,6 @@
 # fav_tube
 
-Projeto de estudo do Flutter.
+Projeto de estudo do Flutter com uso de BLoC.
 
 ## Getting Started
 
