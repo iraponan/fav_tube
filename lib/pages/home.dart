@@ -53,15 +53,30 @@ class HomePage extends StatelessWidget {
       ),
       body: StreamBuilder(
         stream: BlocProvider.getBloc<VideosBloc>().outVideos,
+        initialData: const [],
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
               itemBuilder: (context, index) {
-                return VideoTile(
-                  video: snapshot.data[index],
-                );
+                if (index < snapshot.data.length) {
+                  return VideoTile(
+                    video: snapshot.data[index],
+                  );
+                } else if (index > 1) {
+                  BlocProvider.getBloc<VideosBloc>().inSearch.add('');
+                  return Container(
+                    height: 40,
+                    width: 40,
+                    alignment: Alignment.center,
+                    child: const CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+                    ),
+                  );
+                } else {
+                  return Container();
+                }
               },
-              itemCount: snapshot.data.length,
+              itemCount: snapshot.data.length + 1,
             );
           } else {
             return Container();

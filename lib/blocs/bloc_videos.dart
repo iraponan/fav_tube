@@ -20,7 +20,12 @@ class VideosBloc extends BlocBase {
   Sink get inSearch => _searchController.sink;
 
   void _search(String search) async {
-    videos = await api.search(search);
+    if (search.isNotEmpty) {
+      _videosController.sink.add([]);
+      videos = await api.search(search);
+    } else {
+      videos += await api.nextPage();
+    }
     _videosController.sink.add(videos);
   }
 
