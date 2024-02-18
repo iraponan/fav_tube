@@ -3,6 +3,7 @@ import 'package:fav_tube/blocs/bloc_favorite.dart';
 import 'package:fav_tube/blocs/bloc_videos.dart';
 import 'package:fav_tube/data/data_search.dart';
 import 'package:fav_tube/models/video.dart';
+import 'package:fav_tube/pages/favorites.dart';
 import 'package:fav_tube/widgets/video_tile.dart';
 import 'package:flutter/material.dart';
 
@@ -23,23 +24,26 @@ class HomePage extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: StreamBuilder<Map<String, Video>>(
-              stream: BlocProvider.getBloc<FavoriteBloc>().outFav,
-              builder: (BuildContext context, AsyncSnapshot<Map<String, Video>> snapshot) {
-                if (snapshot.hasData) {
-                  return Text(
-                    '${snapshot.data?.length}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
-                  );
-                } else {
-                  return Container();
-                }
-              }
-            ),
+                stream: BlocProvider.getBloc<FavoriteBloc>().outFav,
+                builder: (BuildContext context,
+                    AsyncSnapshot<Map<String, Video>> snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(
+                      '${snapshot.data?.length}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                }),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const FavoritesPage()));
+            },
             icon: const Icon(Icons.star),
             style: IconButton.styleFrom(
               foregroundColor: Colors.white,
