@@ -1,6 +1,7 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:fav_tube/blocs/bloc_videos.dart';
 import 'package:fav_tube/data/data_search.dart';
+import 'package:fav_tube/widgets/video_tile.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -55,13 +56,19 @@ class HomePage extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
-              itemBuilder: null,
+              itemBuilder: (context, index) {
+                return VideoTile(
+                  video: snapshot.data[index],
+                );
+              },
+              itemCount: snapshot.data.length,
             );
           } else {
             return Container();
           }
         },
       ),
+      backgroundColor: Colors.black,
     );
   }
 }
