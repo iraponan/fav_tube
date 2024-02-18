@@ -47,9 +47,11 @@ class Api {
       var decoded = jsonDecode(response.body);
       _nextToken = decoded['nextPageToken'];
 
-      List<Video> videos = decoded['items'] != null ? decoded['items'].map<Video>((map) {
-        return Video.fromJson(map);
-      }).toList() : [];
+      List<Video> videos = decoded['items'] != null
+          ? decoded['items'].map<Video>((map) {
+              return Video.fromJson(map);
+            }).toList()
+          : [];
       return videos;
     } else {
       throw Exception('Falha ao carregar os videos.');

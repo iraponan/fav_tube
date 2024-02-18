@@ -1,4 +1,5 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:fav_tube/blocs/bloc_favorite.dart';
 import 'package:fav_tube/blocs/bloc_videos.dart';
 import 'package:fav_tube/config/api.dart';
 import 'package:fav_tube/pages/home.dart';
@@ -10,8 +11,9 @@ void main() {
   runApp(BlocProvider(
     blocs: [
       Bloc((i) => VideosBloc()),
+      Bloc((i) => FavoriteBloc()),
     ],
-    dependencies: [],
+    dependencies: const [],
     child: const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomePage(),

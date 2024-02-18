@@ -13,10 +13,13 @@ class VideosBloc extends BlocBase {
   }
 
   List<Video> videos = [];
-  final StreamController<List<Video>> _videosController = StreamController<List<Video>>();
+  final StreamController<List<Video>> _videosController =
+      StreamController<List<Video>>();
+
   Stream get outVideos => _videosController.stream;
 
   final StreamController<String> _searchController = StreamController<String>();
+
   Sink get inSearch => _searchController.sink;
 
   void _search(String search) async {
