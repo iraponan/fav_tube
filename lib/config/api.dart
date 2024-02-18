@@ -5,20 +5,20 @@ import 'package:fav_tube/models/video.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  Future<void> search(String searsh) async {
+  Future<List<Video>> search(String search) async {
     Uri searshUri = Uri(
         scheme: 'https',
         host: 'www.googleapis.com',
         path: '/youtube/v3/search',
         queryParameters: {
           'part': 'snippet',
-          'q': searsh,
+          'q': search,
           'type': 'video',
           'key': API_KEY,
           'maxResults': '10'
         });
     http.Response response = await http.get(searshUri);
-    decode(response);
+    return decode(response);
   }
 
   List<Video> decode(http.Response response) {
